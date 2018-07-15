@@ -1,0 +1,50 @@
+Userguide for News Webservice:
+
+Product Description:
+There are two projects developed to resolve problem statement:
+
+1) NewsEngineWebservices : This is main project which hosts webservices.
+2) WebserviceConsumer    : This is just a consumer main classes which is only for sake of consuming Web Service.
+
+Webservice Specifications:
+The two major webservice classes and their description is as below:
+
+1) NewsEngineServiceProvider.java :
+   This webservice accepts the inputs from user and creates news from it. For sake of simplicity, news in stored in "D:/news" directory as a xml file. The name of file is computed as <timestamp>_<priority>_<content_type>_news.xml
+   
+   
+   a) public String createNews : Receives inputs in arguments and writes it to flat file system.
+   
+   
+2) NewsGetter.java :
+   This webservice returns various news as requested by reading xml files of news. It has different methods to get Breaking news, Sports/Finance/General news and also news as per timestamp.
+   
+   a) public String  getNews(@PathParam("datetime") String datetime) : return news as per datetime.
+   b) public String  getNews() : Returns 100 Breaking news (the priority one news)
+   c) public String  getSportsNews() : Returns sports news.
+   d) public String  getFinanceNews() : Returns finance news.
+   e) public String  getGeneralNews() : Returns general news.
+   
+
+Logic used in webservices:
+While adding/posting news, a file is created as <timestamp>_<priority>_<content_type>_news.xml. 
+While reading,various contents of  file name is used to identify news.
+
+Consumers of Webservices:
+All below consumers just consumes the webservices and prints the responses.
+
+	a)BreakingNews.java
+	b)FinanceNews.java
+	c)GeneralNews.java
+	d)PostNews.java
+	e)SportsNews.java
+
+Building Webservices:
+
+NewsEngineWebservices : run pom.xml of NewsEngineWebservices to build project.
+
+WebserviceConsumer: Just main methods. No need to build.
+	
+Assumptions and Limitations:
+1) Database is not used for keeping project simple.
+2) Messaging system is not used, rather on demand model of consumer is used to read files as and when needed.
